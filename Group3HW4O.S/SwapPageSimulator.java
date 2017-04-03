@@ -25,7 +25,7 @@ public class SwapPageSimulator {
 		algorithms.add(new LeastFrequentlyUsed ("lfu"));
 		algorithms.add(new LRU("lru"));
 		algorithms.add(new MFU());
-		algorithms.add(new RandomPick("random"))
+		algorithms.add(new RandomPick("randomPick"));
 
 	}
 

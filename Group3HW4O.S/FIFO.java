@@ -24,7 +24,7 @@ public class FIFO implements PickReplacementAlgorithm{
 		evictProcess = p.processName;
 		
 		for(int i =0; i<replacementList.size(); i++) {
-			//compare the two process to find the arrived one based on index number
+			//compare the two process in the list to find the arrived one based on index number
 			if(replacementList.get(i).pageNumber == p.pageNumber && replacementList.get(i).processName.equals(p.processName)) 
 			{
 				replacementList.set(i, new Page(-1, "."));
