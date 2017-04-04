@@ -37,7 +37,7 @@ public class RandomPick implements PickReplacementAlgorithm {
 			//compare the two process to find the arrived one based on index number
 			if(replacementList.get(i).pageNumber == number && replacementList.get(i).processName.equals(evictPage)) 
 			{
-				replacementList.set(i, new Page(replacementList.size()-1, "."));
+				replacementList.set(i, new Page(-1, "."));
 				break;
 			}
 		}
