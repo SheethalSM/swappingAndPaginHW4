@@ -7,11 +7,13 @@ import java.util.*;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class Process {
+public class Process implements Comparable<Process>{
 	private String name;
 	private int arrivalTime;
 	private int serviceDuration;
+	private int sizeMB;
 	private int numOfReferences;
+	private LinkedList<Page> pageReferences;
 	
 	/**
      * Constructor that creates a process
@@ -19,11 +21,13 @@ public class Process {
      * @param runTime1 time to finish its task
      * @param name1 is name of Process at hand
      */
-	public Process(int arrivalTime1, int duration, String name1)
+	public Process(int arrivalTime1, int duration, int processSize, String name1)
 	{
 		arrivalTime = arrivalTime1;
 		serviceDuration= duration;
 		name = name1;
+		sizeMB = processSize;
+		pageReferences = new LinkedList<Page>();
 	}
 	
 	//setter methods are below for all other global variables
@@ -42,6 +46,10 @@ public class Process {
 	public void setServiceDuration(int duration)
 	{
 		serviceDuration = duration;
+	}
+	public void addPageReference(Page addingPage)
+	{
+		if (pageReferences.size() < sizeMB) pageReferences.add(addingPage);
 	}
 	
 	//getters are below
@@ -63,6 +71,17 @@ public class Process {
 	public int getServiceDuration()
 	{
 		return serviceDuration;
+	}
+	public LinkedList<Page> getPageReferences()
+	{
+		return pageReferences;
+	}
+
+	@Override
+	public int compareTo(Process p) {
+		if (this.arrivalTime < p.arrivalTime) return -1;
+		else if (this.arrivalTime > p.arrivalTime) return 1;
+		else return 0;
 	}
 	
 }
