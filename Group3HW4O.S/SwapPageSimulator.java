@@ -17,6 +17,7 @@ public class SwapPageSimulator {
     private static char [] ProcessName = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 			'I', 'J', 'K'};
     
+    
     //????????????????????DO we need a maximum time stamp?
 	public static void main(String[] args) {
 		List<PickReplacementAlgorithm> algorithms = new ArrayList<>();

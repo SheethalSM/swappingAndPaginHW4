@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 public class FIFO implements PickReplacementAlgorithm{
 
 	String name;
-	//constructor of fifo
+	//constructor of fifo (name of algorithm)
 	public FIFO(String name1){
 		name = name1;
 	}
@@ -16,7 +16,6 @@ public class FIFO implements PickReplacementAlgorithm{
 	 * @param page queue linkedlist
 	 * @return String exited process name
 	 */
-	@Override
 	public String run(LinkedList<Page> replacementList, LinkedList<Page> PageQueue) {
 
 		String evictProcess;
@@ -27,15 +26,17 @@ public class FIFO implements PickReplacementAlgorithm{
 			//compare the two process in the list to find the arrived one based on index number
 			if(replacementList.get(i).pageNumber == p.pageNumber && replacementList.get(i).processName.equals(p.processName)) 
 			{
-				replacementList.set(i, new Page(-1, "."));
+				replacementList.set(i, new Page(replacementList.size()-1, "."));
 				break;
 			}
 		}
 		return evictProcess;
 	}
-	@Override
+	/**
+	 * Returns the name of the algorithm
+	 * @return String of algorithm name
+	 */
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
