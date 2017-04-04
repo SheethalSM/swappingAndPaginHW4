@@ -45,6 +45,7 @@ public class SwapPageSimulator {
 					//execute it (add to currently running) only if at least 4 free pages in page list, 
 															//else leave in queue and wait until 4 free
 		//Every 100 msec, for currently running processes, each add a page, if no free page, use algorithm 
+		//when add a page set  recentlyUsedTime of sec+ msec page.setRecentlyT....()
 		//Every 1 sec, for currently running processes, each decrement their own duration by 1
 		
 

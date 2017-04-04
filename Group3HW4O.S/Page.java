@@ -4,9 +4,10 @@
  *  Structure of 
  */
 public class Page {
-    int pageNumber;
-    String processName;
+    int pageNumber;// the page number in main memory or for each process? 
+    String  processName;
     int referencedTime;
+    int recentlyUsedTime;
   
    /**
    * Constructor that creates a page
@@ -17,6 +18,7 @@ public class Page {
 		pageNumber = PageNumber;
 		processName = ProcessName;
 		referencedTime = 0;
+		recentlyUsedTime=-1;
 	}
 	
 	/**
@@ -43,5 +45,8 @@ public class Page {
 	public void setProcessName(String pName)
 	{
 		processName=pName;
+	}
+	
+	public void setRecentlyUsedTime(int time){recentlyUsedTime= time;
 	}
 }
