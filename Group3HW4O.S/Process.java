@@ -14,6 +14,7 @@ public class Process implements Comparable<Process>{
 	private int sizeMB;
 	private int numOfReferences;
 	private LinkedList<Page> pageReferences;
+	private int currentPage = 0;
 	
 	/**
      * Constructor that creates a process
@@ -82,6 +83,47 @@ public class Process implements Comparable<Process>{
 		if (this.arrivalTime < p.arrivalTime) return -1;
 		else if (this.arrivalTime > p.arrivalTime) return 1;
 		else return 0;
+	}
+	
+	public Page paging(){
+		Random r = new Random();
+		int probability = r.nextInt() % 10;
+		if(probability < 7){
+			if(currentPage == 0){
+				switch(r.nextInt() % 2){
+				case 0: currentPage += 0; break;
+				case 1: currentPage += 1; break;
+				}
+			}
+			else if(currentPage == pageReferences.size() - 1){
+				switch(r.nextInt() % 2){
+				case 0: currentPage += 0; break;
+				case 1: currentPage += -1; break;
+				}
+			}
+			else{
+				switch(r.nextInt() % 3){
+				case 0: currentPage += 0; break;
+				case 1: currentPage += 1; break;
+				case 2: currentPage += -1; break;
+				}
+			}
+		}
+		else if(probability <= 7 && probability < 10){
+			if(currentPage - 2 < 0){
+				currentPage = r.nextInt(pageReferences.size() - (currentPage + 2)) + currentPage + 2;
+			}
+			else if(currentPage + 2 >= pageReferences.size() - 1){
+				currentPage = r.nextInt() % currentPage - 2;
+			}
+			else if(r.nextBoolean() == true){
+				currentPage = r.nextInt() % currentPage - 2;
+			}
+			else{
+				currentPage = r.nextInt(pageReferences.size() - (currentPage + 2)) + currentPage + 2;
+			}
+		}
+		return pageReferences.get(currentPage);
 	}
 	
 }
