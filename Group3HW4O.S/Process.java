@@ -116,7 +116,7 @@ public class Process implements Comparable<Process>{
 				}
 			}
 		}
-		else if(probability <= 7 && probability < 10){
+		else if(probability >= 7 && probability < 10){
 			if(currentPage - 2 < 0){
 				currentPage = r.nextInt(pageReferences.size() - (currentPage + 2)) + currentPage + 2;
 			}
