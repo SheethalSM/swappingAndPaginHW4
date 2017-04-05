@@ -44,13 +44,16 @@ public class Process implements Comparable<Process>{
 	{
 		numOfReferences = numOfRefer1;
 	}
-	public void setServiceDuration(int duration)
+	public void decServiceDuration()
 	{
-		serviceDuration = duration;
+		serviceDuration--;
 	}
 	public void addPageReference(Page addingPage)
 	{
-		if (pageReferences.size() < sizeMB) pageReferences.add(addingPage);
+		if (pageReferences.size() < sizeMB) {
+			pageReferences.add(addingPage);
+			numOfReferences++;
+		}
 	}
 	
 	//getters are below
@@ -76,6 +79,10 @@ public class Process implements Comparable<Process>{
 	public LinkedList<Page> getPageReferences()
 	{
 		return pageReferences;
+	}
+	
+	public int getMaxPages() {
+		return sizeMB;
 	}
 
 	@Override

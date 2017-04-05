@@ -49,4 +49,8 @@ public class Page {
 	
 	public void setRecentlyUsedTime(int time){recentlyUsedTime= time;
 	}
+	
+	public int getPageNumber() {
+		return pageNumber;
+	}
 }
