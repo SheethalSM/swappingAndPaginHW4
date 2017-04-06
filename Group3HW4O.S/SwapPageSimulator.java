@@ -100,7 +100,6 @@ public class SwapPageSimulator {
 					timer.cancel(); // Stop timer after 1 minute
 				}
 
-
 				for (int i = 0; i < currentProcesses.size(); i++) {
 					Process p = currentProcesses.get(i);
 					//if (pageTable.hasFreePage()) { //Add a page if there is a free page and if process needs page
@@ -108,7 +107,7 @@ public class SwapPageSimulator {
 						// set recentlyUsedTime of sec+ msec page.setRecentlyT....()
 						
 						// Don't know what page index to use?
-						Page pageUsed = pageTable.usePage(p, pageIndex);
+						Page pageUsed = pageTable.usePage(p);
 						int recentlyUsedTime = (int) (System.currentTimeMillis() - startTime/1000);
 						pageUsed.setRecentlyUsedTime(recentlyUsedTime);
 						p.addPageReference(pageUsed);
