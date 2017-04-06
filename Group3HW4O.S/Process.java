@@ -130,7 +130,7 @@ public class Process implements Comparable<Process>{
 				currentPage = r.nextInt(pageReferences.size() - (currentPage + 2)) + currentPage + 2;
 			}
 		}
-		return pageReferences.get(currentPage);
+		return pageReferences.get(currentPage); 
 	}
 	
 }

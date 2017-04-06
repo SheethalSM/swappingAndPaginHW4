@@ -87,7 +87,6 @@ public class SwapPageSimulator {
 		Timer timer = new Timer();
 
 		long startTime = System.currentTimeMillis();
-		int freePageIndex = 0;
 
 
 		timer.schedule(new TimerTask() {
@@ -109,7 +108,7 @@ public class SwapPageSimulator {
 						// set recentlyUsedTime of sec+ msec page.setRecentlyT....()
 						
 						// Don't know what page index to use?
-						Page pageUsed = pageTable.usePage(p);
+						Page pageUsed = pageTable.usePage(p, pageIndex);
 						int recentlyUsedTime = (int) (System.currentTimeMillis() - startTime/1000);
 						pageUsed.setRecentlyUsedTime(recentlyUsedTime);
 						p.addPageReference(pageUsed);
@@ -118,7 +117,7 @@ public class SwapPageSimulator {
 					//}
 					//else { // Used picked algorithm to swap 
 						
-					if (!pageTable.hasFreePage()) {
+					if (pageTable.hasFreePage()) {
 					//System.out.println("Swap happens");
 						LinkedList<Page> pagesToReplace = new LinkedList<Page>();
 						
@@ -180,19 +179,6 @@ public class SwapPageSimulator {
 			}
 			// for currently running processes
 		}, 0, 1000);
-	}
-
-	public int generateLoR(int index) {
-		int pageReference;
-		int j;
-		int first = rand.nextInt(10);
-		if (first >= 0 && first <= 6)
-			pageReference = index + deltaI[rand.nextInt(3)];
-		else {
-			//???
-			pageReference = 0;
-		}
-		return pageReference;
 	}
 
 	public static Queue<Process> createJobList()
