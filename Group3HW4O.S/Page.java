@@ -7,7 +7,7 @@ public class Page {
     int pageNumber;// the page number in main memory or for each process? 
     String  processName;
     int referencedTime;
-    int recentlyUsedTime;
+    double recentlyUsedTime;
   
    /**
    * Constructor that creates a page
@@ -47,7 +47,7 @@ public class Page {
 		processName=pName;
 	}
 	
-	public void setRecentlyUsedTime(int time){recentlyUsedTime= time;
+	public void setRecentlyUsedTime(double time){recentlyUsedTime= time;
 	}
 	
 	public int getPageNumber() {

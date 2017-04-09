@@ -25,8 +25,8 @@ public class LRU implements PickReplacementAlgorithm{
 		// TODO Auto-generated method stub
 		String evictProcessName;
 		// get the recently used time 
-		int leastRecent = PageQueue.get(0).recentlyUsedTime;
-		int mostRecent = PageQueue.get(0).recentlyUsedTime;
+		double leastRecent = PageQueue.get(0).recentlyUsedTime;
+		double  mostRecent = PageQueue.get(0).recentlyUsedTime;
 		int count = 0;
 		for(int i =0; i< PageQueue.size(); i++) {
 			if(leastRecent > PageQueue.get(i).recentlyUsedTime)            //if there exists a page's recently used time smaller than current time

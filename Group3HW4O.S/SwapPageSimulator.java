@@ -108,7 +108,7 @@ public class SwapPageSimulator {
 						
 						// Don't know what page index to use?
 						Page pageUsed = pageTable.usePage(p);
-						int recentlyUsedTime = (int) (System.currentTimeMillis() - startTime/1000);
+						double recentlyUsedTime = (System.currentTimeMillis() - startTime/1000);
 						pageUsed.setRecentlyUsedTime(recentlyUsedTime);
 						p.addPageReference(pageUsed);
 						//System.out.println("Process " + p.getName() + " used page " + pageUsed.getPageNumber());
