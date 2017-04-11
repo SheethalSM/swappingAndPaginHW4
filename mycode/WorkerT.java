@@ -46,9 +46,9 @@ public class WorkerT implements Runnable{
 				}
 				
 				removeTheContentFromM();
-				appPicker(App.prompt);	//after removing it update the page to evict
+					
 				writeRecord("Exit");
-
+				appPicker(App.prompt); //after removing it update the page to evict
 				break;
 				
 			}
@@ -267,7 +267,7 @@ public class WorkerT implements Runnable{
 			pageInRef = true;
 			App.hit.incrementAndGet();
 				
-			
+			//appPicker(App.prompt);
 			doSomething(this.jobProcess.getFrames().get(cIndex).getIndex());
 		}	
 			
@@ -290,21 +290,22 @@ public class WorkerT implements Runnable{
 				
 					//setting the values back to initial states
 					if(App.prompt <= 2){
-						App.algorithmList.set(this.jobProcess.getFrames().get(cIndex).getIndex() - 1, 60);
-						
+						synchronized (this.lkalgor) {
+							App.algorithmList.set(indexForFrame - 1, 60);
+						}
 					}else if(App.prompt == 3){
 						//prompt == 3 or 4
 						
 						synchronized (this.lkalgor) {
 							int k = 9999; //set to 9999 initial state when removed
-							App.algorithmList.set(this.jobProcess.getFrames().get(cIndex).getIndex() - 1, k);
+							App.algorithmList.set(indexForFrame - 1, k);
 						}
 					}else if(App.prompt == 4){
 						//prompt == 3 or 4
 						
 						synchronized (this.lkalgor) {
 							int k = 0; //set to zero when removed
-							App.algorithmList.set(this.jobProcess.getFrames().get(cIndex).getIndex() - 1, k);
+							App.algorithmList.set(indexForFrame - 1, k);
 						}
 					}
 				}

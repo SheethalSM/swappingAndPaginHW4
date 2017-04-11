@@ -36,6 +36,11 @@ public class App {
 	
 	private Object lock, lockalgor;
 	
+	private static int timeIndex;
+	private static int durationT = 1;
+	private static Random r = new Random();
+	
+	
 	
 	public static int prompt;	//dont think volatile is necessary
 
@@ -147,17 +152,28 @@ public class App {
 	}
 	
 	private static JobProcess generateProcess(){
-		Random r = new Random(); 
 		
-		int time = r.nextInt(5) + 1;
+		int time = durationT;
 		
-		int size = arr[r.nextInt(4)];
+		int size = arr[timeIndex];
 		
 		int arrTime = r.nextInt(SEC);
 		
 		JobProcess p = new JobProcess("P" + i, size,
 				arrTime, time);
 		i++;
+		
+		timeIndex++;
+		durationT++;
+		
+		if(timeIndex == 4)
+			timeIndex = 0;
+		
+		
+		if(durationT == 6)
+			durationT = 1;
+		
+		
 		return p;
 		
 	}
