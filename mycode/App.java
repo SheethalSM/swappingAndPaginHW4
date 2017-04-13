@@ -28,6 +28,8 @@ public class App {
 	public static AtomicInteger hit = new AtomicInteger(0);
 	public volatile static int miss;
 	public static AtomicInteger evict = new AtomicInteger(0);
+	public static int successFully = 0;
+	
 	
 	public static ArrayList<Integer> algorithmList; //for algorithm 2 3 4
 	public static LinkedList<Integer> FIFOlist; // for fifo algorithm
@@ -112,6 +114,7 @@ public class App {
 			}
 			if(okToPop == 1){
 				jobQ.pop();
+				App.successFully++;
 				okToPop = 0;
 			}
 			
@@ -128,6 +131,8 @@ public class App {
 		try {
 			Thread.sleep(1000);
 			System.out.println("Hit/Miss ratio: " + App.hit + "/" + App.miss);
+			System.out.println("Successfully swapped in: " + successFully);
+			System.out.println(App.freePageL);
 		//	System.out.println(App.evict.get());
 
 		} catch (InterruptedException e) {
