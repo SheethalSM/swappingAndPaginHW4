@@ -84,11 +84,13 @@ public class App {
 			public void run() {
 				// no need for synchronization since 
 				// only one thread can access the data.
-				if(sec.getAndIncrement() == SEC-1){
+				if(sec.get() >= SEC-1){
 					flagTA = 1;
 					timer.purge();
 
 					timer.cancel();
+				}else{
+					sec.incrementAndGet();
 				}
 				//System.out.println(se);
 
@@ -153,7 +155,7 @@ public class App {
 	
 	private static JobProcess generateProcess(){
 		
-		int time = 20;//durationT;
+		int time = durationT;
 		
 		int size = arr[sizeIndex];
 		
