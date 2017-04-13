@@ -84,7 +84,7 @@ public class App {
 			public void run() {
 				// no need for synchronization since 
 				// only one thread can access the data.
-				if(sec.incrementAndGet() == SEC-1){
+				if(sec.incrementAndGet() == SEC){
 					flagTA = 1;
 					timer.purge();
 
@@ -96,11 +96,11 @@ public class App {
 			
 		}, 1000,1000);
 		
-		while(flagTA != 1){
+		while(sec.get() < 60 && flagTA != 1){
 			// main job starts here
 			if(okToPop == 0){
 				okToPop = -1;
-				if(jobQ.peek().getArr() <= sec.get()){
+				if( sec.get() < 60 && jobQ.peek().getArr() <= sec.get()){
 					WorkerT workers = new WorkerT(jobQ.peek(), freePageL, lock, lockalgor,sec);
 					Thread t = new Thread(workers);
 					t.start();

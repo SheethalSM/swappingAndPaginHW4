@@ -70,8 +70,11 @@ public class WorkerT implements Runnable{
 				//System.out.println("ENTERRRRRRRRRRRRRR");
 				haventPOP = 0;
 			}
-			
-			readFromMemory();
+			if(time.get() < 60  && App.flagTA == 0){
+				readFromMemory();
+			}else{
+				break;
+			}
 			appPicker(App.prompt);	//after removing it update the page to evict
 		}
 	}
