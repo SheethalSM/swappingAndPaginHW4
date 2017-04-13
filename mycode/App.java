@@ -36,7 +36,7 @@ public class App {
 	
 	private Object lock, lockalgor;
 	
-	private static int timeIndex;
+	private static int sizeIndex;
 	private static int durationT = 1;
 	private static Random r = new Random();
 	
@@ -84,7 +84,7 @@ public class App {
 			public void run() {
 				// no need for synchronization since 
 				// only one thread can access the data.
-				if(sec.incrementAndGet() == SEC){
+				if(sec.getAndIncrement() == SEC-1){
 					flagTA = 1;
 					timer.purge();
 
@@ -153,9 +153,9 @@ public class App {
 	
 	private static JobProcess generateProcess(){
 		
-		int time = durationT;
+		int time = 20;//durationT;
 		
-		int size = arr[timeIndex];
+		int size = arr[sizeIndex];
 		
 		int arrTime = r.nextInt(SEC);
 		
@@ -163,11 +163,11 @@ public class App {
 				arrTime, time);
 		i++;
 		
-		timeIndex++;
+		sizeIndex++;
 		durationT++;
 		
-		if(timeIndex == 4)
-			timeIndex = 0;
+		if(sizeIndex == 4)
+			sizeIndex = 0;
 		
 		
 		if(durationT == 6)
