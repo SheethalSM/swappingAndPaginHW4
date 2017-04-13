@@ -117,7 +117,11 @@ public class WorkerT implements Runnable{
 					this.freePageL.doAt(this.jobProcess, nextIndex);
 					this.jobProcess.addFrame(this.freePageL.get(nextIndex)); 
 					// prompt == 1 or 2
-					if(App.prompt <= 2){
+					if(App.prompt == 1){
+						synchronized (this.lkalgor) {
+							App.FIFOlist.add(nextIndex);
+						}
+					}else if(App.prompt == 2){
 						synchronized (this.lkalgor) {
 							
 							App.algorithmList.set(nextIndex - 1, this.time.get());
@@ -170,7 +174,11 @@ public class WorkerT implements Runnable{
 						//System.out.println("SET");
 					}
 					
-					if(App.prompt <= 2){
+					if(App.prompt == 1){
+						synchronized (this.lkalgor) {
+							App.FIFOlist.add(nextIndex);
+						}
+					}else if(App.prompt == 2){
 						synchronized (this.lkalgor) {
 							
 							App.algorithmList.set(nextIndex - 1, this.time.get());
@@ -199,7 +207,7 @@ public class WorkerT implements Runnable{
 					
 					appPicker(App.prompt);
 
-					App.evict.incrementAndGet();
+					//App.evict.incrementAndGet();
 					pageInRef = false;
 					this.freePageL.clean(App.pick);
 					this.freePageL.doAt(this.jobProcess, App.pick);
@@ -211,7 +219,14 @@ public class WorkerT implements Runnable{
 						this.jobProcess.getFrames().set(cIndex, this.freePageL.get(App.pick));
 						//System.out.println("SET");
 					}
-					if(App.prompt <= 2){
+					
+					//swapping algor
+					if(App.prompt == 1){
+						synchronized (this.lkalgor) {
+							App.FIFOlist.pop();	// pop the first in first out 
+							App.FIFOlist.add(App.pick); // new frame just came in
+						}
+					}else if(App.prompt == 2){
 						synchronized (this.lkalgor) {
 							
 							App.algorithmList.set(App.pick - 1, this.time.get());
@@ -256,7 +271,7 @@ public class WorkerT implements Runnable{
 					App.algorithmList.set(this.jobProcess.getFrames().get(cIndex).getIndex() - 1, this.time.get());
 				}
 				
-			}else if(App.prompt != 5){
+			}else if(App.prompt == 3 || App.prompt == 4){
 				//prompt == 3 or 4
 				
 				synchronized (this.lkalgor) {
@@ -282,7 +297,8 @@ public class WorkerT implements Runnable{
 	// might reimplement this
 	public void removeTheContentFromM(){
 		synchronized(this.mutex){
-		
+			
+			
 			int indexForFrame;
 			for( int i = 1 ;i < this.jobProcess.getFrames().size(); i++){
 					// if this jobProcess queue element name is equal to this process name
@@ -292,7 +308,11 @@ public class WorkerT implements Runnable{
 					this.freePageL.clean(indexForFrame);
 				
 					//setting the values back to initial states
-					if(App.prompt <= 2){
+					if(App.prompt == 1){
+						synchronized (this.lkalgor) {
+							App.FIFOlist.remove(App.FIFOlist.indexOf(indexForFrame));	//FIFO
+						}
+					}else if(App.prompt == 2){
 						synchronized (this.lkalgor) {
 							App.algorithmList.set(indexForFrame - 1, 60);
 						}
@@ -313,6 +333,8 @@ public class WorkerT implements Runnable{
 					}
 				}
 			}
+			
+			
 		}
 		
 	}
@@ -361,7 +383,10 @@ public class WorkerT implements Runnable{
 		if(i == 1){
 			//FIFO use time to determine 
 			synchronized (this.lkalgor) {
-				App.pick = App.algorithmList.indexOf(Collections.min(App.algorithmList))+1;
+				if(!App.FIFOlist.isEmpty())
+					App.pick = App.FIFOlist.peek();
+				else
+					App.pick = 0;
 			}
 		}else if(i == 2){
 			//LRU use time to determine

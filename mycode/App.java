@@ -29,7 +29,8 @@ public class App {
 	public volatile static int miss;
 	public static AtomicInteger evict = new AtomicInteger(0);
 	
-	public static ArrayList<Integer> algorithmList; //construct an arrayList of all 60 
+	public static ArrayList<Integer> algorithmList; //for algorithm 2 3 4
+	public static LinkedList<Integer> FIFOlist; // for fifo algorithm
 	
 	public volatile static int pick = -1;
 	
@@ -67,8 +68,9 @@ public class App {
 			return;
 			
 		}
-		
-		if(prompt <= 2){
+		if(prompt == 1){
+			FIFOlist = new LinkedList<>();
+		}else if(prompt == 2){
 			algorithmList = new ArrayList<>(Collections.nCopies(99, SEC));
 		}else if(prompt == 3){
 			algorithmList = new ArrayList<>(Collections.nCopies(99, 9999));
