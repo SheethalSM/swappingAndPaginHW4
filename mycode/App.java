@@ -106,18 +106,25 @@ public class App {
 			// main job starts here
 			if(okToPop == 0){
 				okToPop = -1;
+				
 				if( sec.get() < 60 && jobQ.peek().getArr() <= sec.get()){
 					WorkerT workers = new WorkerT(jobQ.peek(), freePageL, lock, lockalgor,sec);
 					Thread t = new Thread(workers);
 					t.start();
 				}
 			}
+			
 			if(okToPop == 1){
+				
 				jobQ.pop();
 				App.successFully++;
 				okToPop = 0;
 			}
-			
+			while(jobQ.isEmpty()){
+				if(flagTA == 1)
+					break;
+			}
+				
 			
 		}
 		
@@ -133,7 +140,7 @@ public class App {
 			System.out.println("Hit/Miss ratio: " + App.hit + "/" + App.miss);
 			System.out.println("Successfully swapped in: " + successFully);
 			System.out.println(App.freePageL);
-		//	System.out.println(App.evict.get());
+			//System.out.println(App.evict.get());
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();

@@ -57,6 +57,11 @@ public class WorkerT implements Runnable{
 			//put all disk memory to physical memory
 			while(jobSize + 1 > this.jobProcess.getFrames().size()){
 				writeToMemory();
+				if(haventPOP == 1){
+					App.okToPop = 1;
+					//System.out.println("ENTERRRRRRRRRRRRRR");
+					haventPOP = 0;
+				}
 				appPicker(App.prompt);
 				if(App.flagTA == 1){
 					break;
@@ -65,11 +70,7 @@ public class WorkerT implements Runnable{
 			
 			//after it has put all the disk data to physical memory
 			// it will flag the main thread to pop the job
-			if(jobSize + 1 == this.jobProcess.getFrames().size() && haventPOP == 1){
-				App.okToPop = 1;
-				//System.out.println("ENTERRRRRRRRRRRRRR");
-				haventPOP = 0;
-			}
+			
 			if(time.get() < 60  && App.flagTA == 0){
 				readFromMemory();
 			}else{
